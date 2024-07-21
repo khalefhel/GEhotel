@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ hotel.Nom }}</h1>
+            <img src="{{ asset(hotel.attachment) }}" alt="{{ hotel.Nom }}" class="img-fluid mb-3" />
+            <p>Lieu: {{ hotel.lieu }}</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Description de l'hôtel :</h5>
+                    {{ hotel.description|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8"> <!-- Change the column width to 8 to occupy 80% of the screen -->
+            <h2>Chambres disponibles :</h2>
+            <ul class="list-group">
+                {% for chambre in chambres %}
+                <li class="list-group-item">
+                    <div class="room__card">
+                        <div class="room__content">
+                            <div class="room__card__header">
+                                <h4>{{ chambre.Type }}</h4>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img src="{{ asset(chambre.attachment) }}" alt="{{ chambre.Type }}" class="img-fluid chambre-image" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img src="{{ asset(chambre.attachment2) }}" alt="{{ chambre.Type }}" class="img-fluid chambre-image" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img src="{{ asset(chambre.attachment3) }}" alt="{{ chambre.Type }}" class="img-fluid chambre-image" />
+                                    </div>
+                                </div>
+                                <div class="popular__content">
+                                    <p>{{ chambre.description|raw }}</p>
+                                    <div class="popular__card__header">
+                                        <p>Prix par nuit : {{ chambre.prixparnuit | number_format(2) }} € | Nombre de lits : {{ chambre.nombredelits | number_format() }}</p>
+<a href="{{ path('reservation_detail', {'id_hotel': hotel.id, 'id_chambre': chambre.id}) }}" class="btn btn-primary">Réserver</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

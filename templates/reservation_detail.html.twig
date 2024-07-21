@@ -1,0 +1,34 @@
+{# reservation_detail.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Details{% endblock %}
+
+{% block body %}
+    <h1>Reservation Details</h1>
+    <p>Hotel Name: {{ hotel.nom }}</p>
+    <p>Chambre Number: {{ chambre.id }}</p>
+    <form method="post" action="{{ path('reservation_submit', { 'id_hotel': hotel.id, 'id_chambre': chambre.id }) }}">
+        <div>
+            <label for="date_arrivee">Date d'arrivée:</label>
+            <input type="date" id="date_arrivee" name="date_arrivee">
+        </div>
+        <div>
+            <label for="date_depart">Date de départ:</label>
+            <input type="date" id="date_depart" name="date_depart">
+        </div>
+        <div>
+            <label for="nombre_adultes">Nombre d'adultes:</label>
+            <input type="number" id="nombre_adultes" name="nombre_adultes" min="1">
+        </div>
+        <div>
+            <label for="nombre_enfants">Nombre d'enfants:</label>
+            <input type="number" id="nombre_enfants" name="nombre_enfants" min="0">
+        </div>
+        <input type="hidden" name="status" value="pending">
+        <input type="hidden" name="client_id_id" value="{{ user_id }}">
+        <input type="hidden" name="chambre_id_id" value="{{ chambre.id }}">
+        <input type="hidden" name="hotel_id_id" value="{{ hotel.id }}">
+        <button type="submit">Réserver</button>
+    </form>
+{% endblock %}
